@@ -29,7 +29,7 @@ public class ImageEncyptionDecryption {
 
             /*~~~~~~~~~~~~~~~~~~~~~~~Apply Encryption ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-            imgIn = new FileInputStream("Image\\speaker.bmp");
+            imgIn = new FileInputStream("Image\\Tux.bmp");
             imgOut = new FileOutputStream("Image\\Output\\EncryptedImage.bmp");
 
             dataIn = new DataInputStream(imgIn);
