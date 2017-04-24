@@ -14,7 +14,7 @@ public class ImageEncyptionDecryption {
         Random rand = new Random();
         int[] key = {10, 12, 13, 14};
         CBCMode cbc = new CBCMode(key);
-
+        int skip = 10;
         int[] img = new int[2];
 
         int IV[] = {rand.nextInt(), rand.nextInt()};    // Random IV for CBCMode
@@ -29,13 +29,13 @@ public class ImageEncyptionDecryption {
 
             /*~~~~~~~~~~~~~~~~~~~~~~~Apply Encryption ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-            imgIn = new FileInputStream("Image\\Tux.bmp");
-            imgOut = new FileOutputStream("Image\\EncryptedImage.bmp");
+            imgIn = new FileInputStream("Image\\speaker.bmp");
+            imgOut = new FileOutputStream("Image\\Output\\EncryptedImage.bmp");
 
             dataIn = new DataInputStream(imgIn);
             dataOut = new DataOutputStream(imgOut);
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < skip; i++) {
                 if (dataIn.available() > 0) {
                     img[0] = dataIn.readInt();
                     img[1] = dataIn.readInt();
@@ -76,10 +76,10 @@ public class ImageEncyptionDecryption {
 
             /*~~~~~~~~~~~~~~~~~~~~~~~ Apply Decryption ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-            dataIn = new DataInputStream(new FileInputStream("Image\\EncryptedImage.bmp"));
-            dataOut = new DataOutputStream(new FileOutputStream("Image\\DecryptedImage.bmp"));
+            dataIn = new DataInputStream(new FileInputStream("Image\\Output\\EncryptedImage.bmp"));
+            dataOut = new DataOutputStream(new FileOutputStream("Image\\Output\\DecryptedImage.bmp"));
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < skip; i++) {
                 if (dataIn.available() > 0) {
                     img[0] = dataIn.readInt();
                     img[1] = dataIn.readInt();
@@ -128,7 +128,7 @@ public class ImageEncyptionDecryption {
             imgOut.close();
             imgIn.close();
         } catch (Exception ex) {
-            System.out.println("Exception");
+            System.out.println("Image Not Found Exception");
         }
 
     }
