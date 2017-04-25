@@ -53,6 +53,7 @@ public class ImageEncyptionDecryption {
             for (int i = 0; i < imgsList.size(); i++) {
                 System.out.println(i+1 + " : " + imgsList.get(i));
             }
+            System.out.print("\nI Choose Image number : ");
             int index = s.nextInt();
             if(index > 6 || index < 0)
                 throw new Exception();
