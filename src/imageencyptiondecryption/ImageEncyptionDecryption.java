@@ -5,31 +5,68 @@ import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+import java.util.StringJoiner;
 
 public class ImageEncyptionDecryption {
 
     public static void main(String[] args) {
 
         Random rand = new Random();
-        int[] key = {10, 12, 13, 14};
-        CBCMode cbc = new CBCMode(key);
+        int[] key = new int[4];
         int skip = 10;
         int[] img = new int[2];
-
         int IV[] = {rand.nextInt(), rand.nextInt()};    // Random IV for CBCMode
+        String image = "";
+        List<String> imgsList = new ArrayList<>();
 
         FileInputStream imgIn;
         FileOutputStream imgOut;
-
         DataInputStream dataIn;
         DataOutputStream dataOut;
 
+        Scanner s = new Scanner(System.in);
+        System.out.println("Enter Four Integer Values to Use as Key\n");
+        try {
+            for (int i = 0; i < 4; i++) {
+                key[i] = s.nextInt();
+            }
+        } catch (Exception ex) {
+            System.out.println("Please enter valid integer values for Key parts!");
+            System.exit(0);
+        }
+        CBCMode cbc = new CBCMode(key);
+
+        imgsList.add("tux.bmp");
+        imgsList.add("sonic.bmp");
+        imgsList.add("speaker.bmp");
+        imgsList.add("duck.bmp");
+        imgsList.add("panda.bmp");
+        imgsList.add("match.bmp");
+
+        System.out.println("\nEnter the Number of the Image you Want :\n");
+        try {
+            for (int i = 0; i < imgsList.size(); i++) {
+                System.out.println(i+1 + " : " + imgsList.get(i));
+            }
+            int index = s.nextInt();
+            if(index > 6 || index < 0)
+                throw new Exception();
+            else
+                image = imgsList.get(index - 1);
+        } catch (Exception ex) {
+            System.out.println("Choose a valid index!");
+            System.exit(0);
+        }
         try {
 
             /*~~~~~~~~~~~~~~~~~~~~~~~Apply Encryption ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-            imgIn = new FileInputStream("Image\\Tux.bmp");
+            imgIn = new FileInputStream("Image\\" + image);
             imgOut = new FileOutputStream("Image\\Output\\EncryptedImage.bmp");
 
             dataIn = new DataInputStream(imgIn);
